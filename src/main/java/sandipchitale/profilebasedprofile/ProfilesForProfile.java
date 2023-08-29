@@ -2,6 +2,7 @@ package sandipchitale.profilebasedprofile;
 
 import org.springframework.boot.context.config.ConfigDataEnvironmentPostProcessor;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
+import org.springframework.boot.context.properties.ConfigurationPropertiesBindingPostProcessor;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Profiles;
@@ -47,6 +48,18 @@ public class ProfilesForProfile implements ApplicationListener<ApplicationEnviro
 
     public void profilesForProfile(MultiValueMap<String, String> profilesForProfile) {
         this.profilesForProfileMap.addAll(profilesForProfile);
+    }
+
+    public void profileForProfiles(String dependentProfile, String... dependeeProfiles) {
+        Arrays.asList(dependeeProfiles).stream().forEach((String profile) -> {
+            this.profilesForProfileMap.add(profile, dependentProfile);
+        });
+    }
+
+    public void profileForProfiles(String dependentProfile, List<String> dependeeProfiles) {
+        dependeeProfiles.stream().forEach((String profile) -> {
+            this.profilesForProfileMap.add(profile, dependentProfile);
+        });
     }
 
     @Override
