@@ -33,6 +33,7 @@ public class ProfilesForProfile implements ApplicationListener<ApplicationEnviro
         }
     }
 
+    // profile -> dependent profiles
     public void profileForProfile(String profile, String dependentProfile) {
         this.profilesForProfileMap.add(profile, dependentProfile);
     }
@@ -49,6 +50,7 @@ public class ProfilesForProfile implements ApplicationListener<ApplicationEnviro
         this.profilesForProfileMap.addAll(profilesForProfile);
     }
 
+    // dependent profile -> dependee profiles
     public void profileForProfiles(String dependentProfile, String... dependeeProfiles) {
         Arrays.asList(dependeeProfiles).stream().forEach((String profile) -> {
             this.profilesForProfileMap.add(profile, dependentProfile);
